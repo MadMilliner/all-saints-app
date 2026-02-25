@@ -1,3 +1,4 @@
+@import url("modern-normalize.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,4 +16,65 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+:root {
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: clamp(1rem, 0.75rem + 1.5vw, 2rem);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+figure,
+p,
+ol,
+ul {
+  margin: 0;
+}
+
+ol[role="list"],
+ul[role="list"] {
+  list-style: none;
+  padding-inline: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-size: inherit;
+  font-weight: inherit;
+  text-align: center;
+}
+
+img {
+  display: block;
+  max-inline-size: 100%;
+  max-width: 100%;
+}
+
+:root {
+  --var-dark: #000;
+  --var-light: #ffff;
+  --var-medlight: #333333;
+  --var-lightmed: #a3a3a3;
+  --var-med: #535353;
+  --var-rnbw1: #953f41;
+  --var-rnbw2: #db6728;
+  --var-rnbw3: #fac745;
+  --var-rnbw4: #406b32;
+  --var-rnbw5: #3d7d83;
+  --var-rnbw6: #8e5078;
+  --var-pink: #d3889f;
+  --var-blue: #67aabc;
+  --var-brown: #5a3b1d;
+  font-family: "Poppins", sans-serif;
 }
