@@ -1,0 +1,86 @@
+:root {
+  --var-dark: #000;
+  --var-light: #ffff;
+  --var-medlight: #333333;
+  --var-lightmed: #a3a3a3;
+  --var-med: #535353;
+  --var-rnbw1: #953f41;
+  --var-rnbw2: #db6728;
+  --var-rnbw3: #fac745;
+  --var-rnbw4: #406b32;
+  --var-rnbw5: #3d7d83;
+  --var-rnbw6: #8e5078;
+  --var-pink: #d3889f;
+  --var-blue: #67aabc;
+  --var-brown: #5a3b1d;
+  font-family: "Poppins", sans-serif;
+}
+
+.contact-form {
+  max-width: 60vw;
+  font-family: sans-serif;
+}
+
+.contact-form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.contact-form span {
+  font-weight: normal;
+  color: var(--var-lightmed);
+  font-size: 0.9em;
+}
+
+.name-fields {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.name-fields div {
+  flex: 1;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.2rem;
+  border: 1px solid var(--var-lightmed);
+  border-radius: 2px;
+  background: var(--var-light);
+  font-size: 1rem;
+}
+
+input:focus, textarea:focus, button:focus {
+  outline: 2px solid var(--var-rnbw5);
+  outline-offset: 2px;
+}
+
+input:invalid {
+  outline: 2px solid red;
+}
+
+/* button {
+  margin-top: 1.5rem;
+  background: #a5a39e;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #8f8c87;
+} */
+
+/* Responsive behavior */
+@media (max-width: 600px) {
+  .name-fields {
+    flex-direction: column;
+  }
+}
