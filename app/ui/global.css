@@ -61,6 +61,8 @@ img {
   max-width: 100%;
 }
 
+/* end template */
+
 :root {
   --var-dark: #000;
   --var-light: #ffff;
@@ -77,4 +79,563 @@ img {
   --var-blue: #67aabc;
   --var-brown: #5a3b1d;
   font-family: "Poppins", sans-serif;
+}
+
+button {
+  font-size: 0.7rem;
+  color: var(--var-light);
+  background-color: var(--var-lightmed);
+  border-radius: 5px;
+  border: none;
+  width: 10rem;
+  height: 3rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+button:hover {
+  border: var(--var-dark) 2px solid;
+}
+
+#nav-header {
+  display: flex;
+  background-color: var(--var-medlight);
+  position: sticky;
+  top: 0;
+  justify-content: space-between;
+  align-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 1% 1.5%;
+}
+
+#headerLogoA {
+  width: min(300px, 20vw);
+}
+
+#nav-headerlogo {
+  width: calc(20vw - 1%);
+  padding: 5px;
+}
+
+#navbar {
+  display: flex;
+  gap: 1vw;
+  font-size: 0.8rem;
+  align-items: center;
+  width: fit-content;
+  color: var(--var-light);
+}
+
+#navbar a {
+  text-decoration: none;
+}
+
+#navbar a:hover {
+  color: var(--var-light);
+  font-size: 0.9rem;
+}
+
+#navbar a:visited {
+  color: inherit;
+}
+
+a[href="about"]:link,
+a[href="about"]:visited {
+  color: var(--var-rnbw1) !important;
+}
+
+#aboutPage h2,
+#aboutPage h3,
+#aboutPage h4,
+#aboutPage h5,
+#aboutPage h6 {
+  color: var(--var-rnbw1);
+}
+
+a[href="webelieve"],
+a[href="webelieve"]:visited {
+  color: var(--var-rnbw2) !important;
+}
+
+#weBelievePage h2,
+#weBelievePage h3,
+#weBelievePage h4,
+#weBelievePage h5,
+#weBelievePage h6 {
+  color: var(--var-rnbw2);
+}
+
+a[href="events"],
+a[href="events"]:visited {
+  color: var(--var-rnbw3) !important;
+}
+
+#eventsPage h2,
+#eventsPage h3,
+#eventsPage h4,
+#eventsPage h5,
+#eventsPage h6 {
+  color: var(--var-rnbw3);
+}
+
+a[href="give"],
+a[href="give"]:visited {
+  color: var(--var-rnbw4) !important;
+}
+
+#givePage h2,
+#givePage h3,
+#givePage h4,
+#givePage h5,
+#givePage h6 {
+  color: var(--var-rnbw4);
+}
+
+a[href="contact"],
+a[href="contact"]:visited {
+  color: var(--var-rnbw5) !important;
+}
+
+#contactPage h2,
+#contactPage h3,
+#contactPage h4,
+#contactPage h5,
+#contactPage h6 {
+  color: var(--var-rnbw5);
+}
+
+a[href="jobs"],
+a[href="jobs"]:visited {
+  color: var(--var-rnbw6) !important;
+}
+
+#jobsPage h2,
+#jobsPage h3,
+#jobsPage h4,
+#jobsPage h5,
+#jobsPage h6 {
+  color: var(--var-rnbw6);
+}
+
+#page {
+  display: grid;
+  grid-template-areas:
+    "title"
+    "welcome"
+    "desc"
+    "events"
+    "jesus"
+    "signup";
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  grid-area: title;
+  padding: 5vw;
+  line-height: 3rem;
+  color: var(--var-light);
+  background-color: var(--var-med);
+  font-size: 1.5rem;
+  width: auto;
+  margin: auto;
+  margin-bottom: 3rem;
+}
+
+.welcome {
+  grid-area: welcome;
+  text-align: center;
+  font-weight: 600;
+  width: 40vw;
+  margin: auto;
+  padding-bottom: 50px;
+}
+
+.welcome p {
+  margin-bottom: 15px;
+}
+
+.welcome a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.welcome .h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.description {
+  grid-area: desc;
+  width: 65vw;
+  margin: auto;
+  margin-bottom: 1.5rem;
+}
+
+.description .bold,
+.bold {
+  font-weight: 600;
+}
+
+.events {
+  grid-area: events;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#IGfeed {
+  height: 20vh;
+}
+
+.lightwidget-widget {
+  height: 30vh !important;
+}
+
+.jesus {
+  grid-area: jesus;
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.jesus-left {
+  width: 40%;
+}
+
+.jesus-right {
+  width: 60%;
+  font-size: 0.8rem;
+  font-weight: 100;
+}
+
+.jesus,
+.john {
+  background-color: var(--var-dark);
+  color: var(--var-light);
+  padding: 2rem;
+}
+
+#signup {
+  grid-area: signup;
+  justify-self: center;
+  margin-bottom: 0.5rem;
+  line-height: 1.5rem;
+  margin: 1.5rem auto;
+  width: 70vw;
+}
+
+#footer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.5rem;
+  padding: 0.3rem 1rem;
+  margin-bottom: 10vh;
+  font-size: 0.85rem;
+  /* border-top: 1px solid var(--var-medlight); */
+  position: sticky;
+  bottom: 0;
+  width: 100vw;
+  z-index: 9;
+  background-color: var(--var-lightmed);
+}
+
+#footer a {
+  color: inherit;
+}
+
+#footer a:visited {
+  color: inherit;
+}
+
+#footer img {
+  max-width: 1.5rem;
+}
+
+/* about */
+
+#aboutPage > h2,
+#weBelievePage > h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: start;
+  margin-left: 10%;
+}
+
+#aboutPage {
+  display: flex;
+  flex-direction: column;
+}
+
+#whoWeAre {
+  width: 65vw;
+  margin: auto;
+  margin-bottom: 1.5rem;
+  line-height: 1.5rem;
+  font-size: 0.7rem;
+}
+
+.board {
+  width: 65vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vw;
+  justify-content: space-evenly;
+  align-self: center;
+  margin-left: 5%;
+  margin-right: 5%;
+  text-align: center;
+  font-size: 0.8rem;
+  background-color: lightgray;
+  padding: 5vh 5vw;
+}
+
+.board div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board img {
+  object-fit: cover;
+  display: block;
+  max-width: 15vw;
+  height: auto;
+  width: auto;
+}
+
+#weBelievePage {
+  display: flex;
+  flex-direction: column;
+}
+
+#whatWeBelieve {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 5vh 5vw;
+  gap: 5%;
+}
+
+#whatWeBelieve > img {
+  /* width: 23rem; */
+  width: min(350px, 25rem);
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: scale-down;
+}
+
+#whatWeBelieve > p {
+  max-width: 50vw;
+  font-weight: 200;
+}
+
+#beliefs {
+  display: flex;
+  flex-direction: column;
+  margin: 5vh 5vw;
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+
+#beliefs p {
+  margin-bottom: 0.7rem;
+}
+
+#beliefs > h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: start;
+  margin: 3vh 5vw;
+  align-self: start;
+}
+
+#beliefs > p {
+  width: 65vw;
+  align-self: center;
+}
+
+#believeScripture {
+  padding: 1rem 2rem;
+  margin: auto;
+  width: 50vw;
+  font-weight: 200;
+}
+
+#believeScripture > h5 {
+  padding-top: 0.5rem;
+  font-weight: 600;
+}
+
+#eventsPage {
+  display: grid;
+  grid-template-areas: "title title" "calendar events" "signup signup";
+  align-items: center;
+}
+
+#eventsPage > h2 {
+  grid-area: title;
+  padding-bottom: 2rem;
+}
+
+#calendar {
+  grid-area: calendar;
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: start;
+}
+
+#eventsList {
+  grid-area: events;
+  margin: auto;
+}
+
+#eventsPage > h2 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.eventBox {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: flex-start;
+  width: 40vw;
+  margin: 2rem, auto;
+  padding-bottom: 1rem;
+}
+
+.eventBox img {
+  height: min(40vh, 100%);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  align-self: center;
+}
+
+.eventBox h3 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.eventBoxRight {
+  display: flex;
+  flex-direction: column;
+  justify-items: space-between;
+  font-size: 0.6rem;
+  font-weight: 200;
+}
+
+.eventBoxRight > p {
+  margin-bottom: 0.5rem;
+}
+
+/* .eventBoxRight :nth-child(n+2)  {
+  font-weight: 200;
+} */
+
+#givePage {
+  display: flex;
+  flex-direction: column;
+}
+
+#giving {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70vw;
+  margin: 1vh auto;
+  font-size: 0.7rem;
+}
+
+#giving h2 {
+  font-size: 1.2rem;
+  margin: 1.5rem;
+}
+
+#giving h3 {
+  font-size: 1rem;
+}
+
+#howGive {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 50vw;
+  margin-top: 3rem;
+  gap: 5rem;
+}
+
+#howGive h3 {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+#howGive p {
+  margin: 0.5rem;
+}
+
+#howGive > div :nth-child(2) {
+  font-weight: 200;
+  font-size: 0.65rem;
+}
+
+#howGive > div > p {
+  font-size: 0.7rem;
+}
+
+#contactPage {
+  display: flex;
+  flex-direction: column;
+}
+
+#contactPage h4 {
+  margin: 1.5rem 3rem;
+  text-align: left;
+}
+
+#contactPage form {
+  margin-left: 15vw;
+  font-size: 0.9rem;
+}
+
+#jobsPage {
+  display: flex;
+  flex-direction: column;
+}
+
+#leadPastor {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 2rem;
+  color: var(--var-dark);
+  width: 65vw;
+  align-self: center;
+}
+
+#leadPastor h1,
+#leadPastor h2,
+#leadPastor h3 {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+#leadPastor p,
+#leadPastor li {
+  font-size: 0.7rem;
+}
+
+#leadPastor ul {
+  margin: 0.5rem 0 1.5rem 1.5rem;
+}
+
+#jobsPage a {
+  color: var(--var-rnbw6);
+}
+
+#jobsPage a:visited {
+  color: var(--var-rnbw6);
 }

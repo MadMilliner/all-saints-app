@@ -2,7 +2,7 @@
 
 export default function Page() {
     return (
-        <>
+        <div id="page">
         <div className="title">
                 <p>everyone.</p>
                 <p>always.</p>
@@ -39,6 +39,6 @@ export default function Page() {
                     We learn from all the saints who have gone before us and the saints alive today who show us how to love as Jesus loved.
                 </div>
             </div>
-            </>
+            </div>
         );
     };
