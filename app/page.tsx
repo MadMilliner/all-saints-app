@@ -1,6 +1,12 @@
-'use client';
+// 'use client';
+import type { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return{title: 'Home | All Saints LA',}
+}
 
 export default function Page() {
+    
     return (
         <div id="page">
         <div className="title">

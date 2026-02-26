@@ -1,15 +1,15 @@
-'use client';
+// 'use client';
+import type { Metadata } from "next";
+import { GiveOnlineClick, GiveStocksClick, GiveTextClick } from "./giveButtons";
+
+export const generateMetadata = (): Metadata => {
+  return{title: 'Give',}
+}
 
 export default function Page() {
-    const giveOnlineClick = () => {
-        window.open('https://allsaintslosangeles.churchcenter.com/giving', '_blank');
-    };
-    const giveTextClick = () => {
-        window.open('sms:84321');
-    }
-    const giveStocksClick = () => {
-        window.open('https://forms.gle/Vvrx2b7YCjebM8oAA');
-    }
+    
+    
+    
     return (
         <div id="givePage">
             <div id="giving">
@@ -30,17 +30,17 @@ export default function Page() {
                         <h3>Give Online</h3>
                         <p>Give online via Church Center! Put in your information and follow the prompts. 
                             You can set up a recurring gift here.</p>
-                        <button onClick={giveOnlineClick}>Give Online</button>
+                        <GiveOnlineClick></GiveOnlineClick>
                     </div>
                     <div>
                         <h3>Text to Give</h3>
                         <p><span className="bold">Text a dollar amount to 84321</span> and follow the link in the message to give on your phone!</p>
-                        <button onClick={giveTextClick}>Text to Give</button>
+                        <GiveTextClick></GiveTextClick>
                     </div>
                     <div>
                         <h3>Donate Stocks</h3>
                         <p>You are now able to donate stocks to All Saints LA! Follow the link below for to get started with your stock donation!.</p>
-                        <button onClick={giveStocksClick}>Donate Stocks</button>
+                        <GiveStocksClick></GiveStocksClick>
                     </div>
                     <div>
                         <h3>Mail</h3>

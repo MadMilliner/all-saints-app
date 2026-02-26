@@ -1,4 +1,9 @@
-'use client';
+// 'use client';
+import type { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return{title: 'About',}
+}
 
 export default function Page() {
     return (
@@ -17,27 +22,27 @@ export default function Page() {
                 
                 <div>
                     <img src="img/board/edited/Brianna.00000000.jpg" />
-                    <p>Briana Mandel <div>(she/her)</div></p>
+                    <p>Briana Mandel <span>(she/her)</span></p>
                 </div>
                 <div>
                     <img src="img/board/edited/Jorge.00000000.jpg" />
-                    <p>Jorge Garza <div>(he/him)</div></p>
+                    <p>Jorge Garza <span>(he/him)</span></p>
                 </div>
                 <div>
                     <img src="img/board/edited/Kimmy.00000000.jpg" />
-                    <p>Kimmy Andrews <div>(she/her)</div></p>
+                    <p>Kimmy Andrews <span>(she/her)</span></p>
                 </div>
                 <div>
                     <img src="img/board/edited/Monica.00000000.jpg" />
-                    <p>Monica Hsu O'Connor <div>(she/her)</div></p>
+                    <p>Monica Hsu O'Connor <span>(she/her)</span></p>
                 </div>
                 <div>
                     <img src="img/board/Max.webp" />
-                    <p>Max Diamond <div>(he/him)</div></p>
+                    <p>Max Diamond <span>(he/him)</span></p>
                 </div>
                 <div>
                     <img src="img/board/edited/Jason.00000000.jpg" />
-                    <p>Jason Peterson <div>(he/him)</div></p>
+                    <p>Jason Peterson <span>(he/him)</span></p>
                 </div>
             </div>
         </div>

@@ -1,4 +1,9 @@
-'use client';
+// 'use client';
+import type { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return{title: 'Contact',}
+}
 
 export default function Page() {
     return (

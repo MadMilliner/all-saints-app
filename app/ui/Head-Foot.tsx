@@ -9,15 +9,17 @@ export const Navbar: React.FC = () =>
     const pathname = usePathname();
     return (
         <>
-            <a href="/" id="headerLogoA">
-                <Image
-                    src={ASHorizontalLogo}
-                    width={2500}
-                    height={817}
-                    alt="Home - All Saints Church LA Logo"
-                />
-            </a>
+            
             <nav id="navbar">
+                <a href="/" id="headerLogoA">
+                    <Image
+                        src={ASHorizontalLogo}
+                        width={2500}
+                        height={817}
+                        alt="Home - All Saints Church LA Logo"
+                        id='#headerLogoA'
+                    />
+                </a>
                 <a href="about" className={pathname === '/about' ? 'active' : ''}>About</a>
                 <a href="webelieve" className={pathname === '/webelieve' ? 'active' : ''}>We Believe</a>
                 <a href="events" className={pathname === '/events' ? 'active' : ''}>Events</a>
