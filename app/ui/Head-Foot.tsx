@@ -39,7 +39,7 @@ export const Navbar: React.FC = () =>
 export const Footer: React.FC = () =>
 {
     return (
-        <>
+        <div id='footer'>
             <div className="signup">
                 <p>Sign up with your email address to receive our monthly newsletter.</p>
                 <p><input id="newsletterEmail" type="email" autoComplete="email" placeholder="E-mail address" />
@@ -65,7 +65,7 @@ export const Footer: React.FC = () =>
             <div>
                 <a href="mailto:admin@allsaintsla.church">admin@allsaintsla.church</a>
             </div>
-        </>
+        </div>
     );
 };
 

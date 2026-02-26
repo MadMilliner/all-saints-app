@@ -1,8 +1,8 @@
-// 'use client';
 import '@/app/ui/global.css'
 import { Footer, Navbar } from './ui/Head-Foot';
-import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+import type { Metadata } from 'next';
+import { ClerkProvider } from '@clerk/nextjs';
+import { Poppins } from 'next/font/google';
  
 export const metadata: Metadata = {
   title: {
@@ -25,6 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <ClerkProvider>
     <html lang="en" className={poppins.className}>
       <head>
         <meta charSet="utf-8" />
@@ -42,5 +43,6 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
+    </ClerkProvider>
   );
 }
