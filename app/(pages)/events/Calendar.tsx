@@ -4,7 +4,7 @@
 
 import React, { useEffect, useState } from 'react';
 import type { Event } from './EventList'; // Import Event type if needed
-import { JSX } from 'react';
+import type { JSX } from 'react';
 
 const Calendar: React.FC<{ events: Event[] }> = ({ events }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -28,7 +28,7 @@ const Calendar: React.FC<{ events: Event[] }> = ({ events }) => {
             const dayEvents = events.filter(ev => ev.eventDate === currentDay);
 
             if (dayEvents.length > 0) {
-                const targetId = `${dayEvents[0].id}-box`;
+                const targetId = `${dayEvents[0]?.id}-box`;
                 days.push(
                     <div key={day} className={`day event`}>
                         <a href="#" data-event-id={targetId} onClick={(e) => {

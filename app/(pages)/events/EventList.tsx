@@ -27,7 +27,7 @@ const EventComponent: React.FC<{ event: Event }> = ({ event }) => {
 
 const EventList: React.FC<{ events: Event[] }> = ({ events }) => {
     return (
-        <div id="eventsList">
+        <div id="eventsList" className='block'>
             {events.map(event => (
                 <EventComponent key={event.id} event={event} />
             ))}

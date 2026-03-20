@@ -1,5 +1,5 @@
 // 'use client';
-import '../ui/calendar.css'
+import '../../ui/calendar.css'
 import type { Metadata } from "next";
 
 export const generateMetadata = (): Metadata => {
@@ -10,7 +10,7 @@ export const generateMetadata = (): Metadata => {
 import React from 'react';
 import Calendar from './Calendar';
 import EventList from './EventList';
-import { Event } from './EventList';
+import type { Event } from './EventList';
 
 interface EventsPageProps {
     events: Event[];
@@ -47,10 +47,23 @@ const EventsPage = async () => {
     const events: Event[] = await fetchEvents(); // Fetch events data
 
     return (
-        <div id="eventsPage">
-            <h2>All Saints LA Events</h2>
-            <Calendar events={events} />
-            <EventList events={events} />
+        <div className="flex flex-col w-full px-4 py-8 items-center">
+            <h2 className="text-3xl font-medium text-[var(--var-rnbw3)] mb-8">All Saints LA Events</h2>
+            {/* <Calendar events={events} /> */}
+            {/* <iframe 
+                src="https://melstuff-522228.churchcenter.com/calendar?embed=true&view=month&allowFiltering" 
+                style={{width: '100%', height: '600px'}} 
+                className="planning-center-calender-embed m-3 border-collapse"
+                id='calendar'
+                allow="same-origin; cookies"
+            ></iframe> */}
+            <br />
+            <iframe 
+                src="https://allsaintslosangeles.churchcenter.com/calendar?embed=true&view=list&allowFiltering=true" 
+                className="w-full max-w-5xl mx-auto h-[600px] md:h-[800px] border-0 rounded-md"
+                id='eventsList'
+            />
+            {/* <EventList events={events} /> */}
         </div>
     );
 };

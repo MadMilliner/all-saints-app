@@ -5,7 +5,8 @@ export function GiveOnlineClick() {
         window.open('https://allsaintslosangeles.churchcenter.com/giving', '_blank');
     };
     return (
-        <button onClick={handleGiveOnlineClick}>Give Online</button>
+        <button className="" 
+        onClick={handleGiveOnlineClick}>Give Online</button>
     )
 }
 
