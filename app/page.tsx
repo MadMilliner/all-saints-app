@@ -36,7 +36,7 @@ export default async function Page(props: {
             </div>
             <div className="flex flex-col items-center">
                 <p>Stay connected throughout the week:</p>
-                <div id="IGfeed" className="h-[20vh] mt-4">
+                <div id="IGfeed" className="h-[fit-content] mt-4">
                   {/* <h3>IG Feed coming soon</h3> */}
                   <InstagramFeed/>
                 </div>

@@ -125,6 +125,7 @@ button:hover {
 
 #header {
   background-color: var(--var-medlight);
+  z-index: 10;
 }
 
 #headerLogoH {
