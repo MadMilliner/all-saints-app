@@ -18,7 +18,7 @@ export const Navbar: React.FC = () =>
     const pathname = usePathname();
     const [navIsOpen, setNavIsOpen] = useState(false);
     return (
-        <div id='header' className='sticky top-0 navbg flex flex-wrap items-start justify-between w-full px-2 h-[15dvh]'>
+        <div id='header' className='sticky top-0 navbg flex flex-wrap items-start justify-between w-full px-2 min-h-[15dvh] md:h-[15dvh]'>
             <div className="flex items-start justify-between w-full md:w-auto">
                 <Link href="/">
                     <Image
@@ -34,12 +34,12 @@ export const Navbar: React.FC = () =>
                 <button
                     onClick={() => setNavIsOpen(!navIsOpen)}
                     id='navButtonPortrait'
-                    className="flex items-center justify-center text-var(--var-light) focus:outline-none md:hidden w-10 h-10">
+                    className="flex items-center justify-center text-[var(--var-light)] focus:outline-none md:hidden !w-10 !h-10 !p-0 !bg-transparent">
                     {navIsOpen ? (
                         <svg
                             className="w-6 h-6"
-                            fill="none"
                             stroke="currentColor"
+                            fill="none"
                             viewBox="0 0 24 24">
 
                             <path
@@ -52,8 +52,8 @@ export const Navbar: React.FC = () =>
                     ) : (
                         <svg
                             className="w-6 h-6"
-                            fill="none"
                             stroke="currentColor"
+                            fill="none"
                             viewBox="0 0 24 24">
                             <path
                                 strokeLinecap="round"
@@ -65,7 +65,7 @@ export const Navbar: React.FC = () =>
                     )}
                 </button>
             </div>
-            <nav id="navbar" className={`${navIsOpen ? 'flex' : 'hidden'} w-full flex-col p-1 space-y-2 md:flex md:w-auto md:flex-row md:items-center md:space-y-0 md:space-x-4 md:mb-20 ml-auto`}>
+            <nav id="navbar" className={`${navIsOpen ? 'flex' : 'hidden'} w-full flex-col p-3 space-y-2 md:flex md:w-auto md:flex-row md:items-center md:space-y-0 md:space-x-4 md:mb-20 ml-auto`}>
                 <Link href="about" className={`${pathname === '/about' ? 'underline decoration-[var(--var-rnbw1)] decoration-2 underline-offset-4' : ''}`} onClick={() => setNavIsOpen(false)}>About</Link>
                 <Link href="webelieve" className={`${pathname === '/webelieve' ? 'underline decoration-[var(--var-rnbw2)] decoration-2 underline-offset-4' : ''}`} onClick={() => setNavIsOpen(false)}>We Believe</Link>
                 <Link href="events" className={`${pathname === '/events' ? 'underline decoration-[var(--var-rnbw3)] decoration-2 underline-offset-4' : ''}`} onClick={() => setNavIsOpen(false)}>Events</Link>
@@ -83,16 +83,16 @@ export const Footer: React.FC = () =>
         <>
             <div id="signup" className='bg-black text-white p-2 pr-5 pl-5'>
                 <MailchimpSignupForm />
-                
+
                 {/* <p>Sign up with your email address to receive our monthly newsletter.</p>
                 <p><input id="newsletterEmail" type="email" autoComplete="email" placeholder="E-mail address" />
                     <button type="submit">Sign-Up</button>
                 </p> */}
             </div>
-            <div id='footer' className='w-full'>
+            <div id='footer' className='w-full md:flex grid-cols-3 gap-1 flex-wrap'>
 
-                <span>All Saints Los Angeles</span>
-                <div>
+                <div><span>All Saints Los Angeles</span></div>
+                <div className="flex">
                     <a href="https://www.instagram.com/allsaintschurchla/" target="_blank">
                         <Image
                             src={IGlogo}
@@ -101,8 +101,6 @@ export const Footer: React.FC = () =>
                             alt='Instagram'
                         />
                     </a>
-                </div>
-                <div>
                     <a href="https://chat.whatsapp.com/KKgRO6k60Us7ofspO42nbq" target="_blank">
                         <Image
                             src={WAlogo}
@@ -111,8 +109,6 @@ export const Footer: React.FC = () =>
                             alt='Whatsapp'
                         />
                     </a>
-                </div>
-                <div>
                     <a href="https://open.spotify.com/show/73BmDDi6yqUY6CptdBgDLD?si=38b2ba9631ef49b4" target="_blank">
                         <Image
                             src={SPlogo}
