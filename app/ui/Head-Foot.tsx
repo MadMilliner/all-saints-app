@@ -18,8 +18,8 @@ export const Navbar: React.FC = () =>
     const pathname = usePathname();
     const [navIsOpen, setNavIsOpen] = useState(false);
     return (
-        <div id='header' className='sticky top-0 navbg flex flex-wrap items-center justify-between w-full px-4'>
-            <div className="flex items-center justify-between w-full md:w-auto">
+        <div id='header' className='sticky top-0 navbg flex flex-wrap items-start justify-between w-full px-2 h-[15dvh]'>
+            <div className="flex items-start justify-between w-full md:w-auto">
                 <Link href="/">
                     <Image
                         src={ASHorizontalLogo}

@@ -11,18 +11,18 @@ const boardmembers = boardmembersData.filter((bm: any) => bm.status === 'active'
 
 export default async function Page() {
     return (
-        <div className="flex flex-col w-full px-4 md:px-8 py-8">
-            <h2 className="text-2xl font-medium text-left ml-[10%] text-[var(--var-rnbw1)] mb-4">Who we are:</h2>
-            <div className="w-[90%] max-w-[800px] mx-auto mb-6 text-sm leading-6">
+        <div className="flex flex-col w-full px-4 md:px-8 py-8 gap-6">
+            <h2 className="text-2xl font-medium text-left ml-[10%] text-[var(--var-rnbw1)]">Who we are:</h2>
+            <div className="w-[90%] max-w-[800px] mx-auto text-sm leading-6 flex flex-col gap-2">
                 
-                <p className="mb-2">We are a Jesus-centered, progressive, LGBTQIA+ affirming church. </p>
-                <p className="mb-2">We foster connection to God through contemporary worship, insightful scripture teaching, easy-access liturgy, art, and prayer.</p>
-                <p className="mb-2">We are ecumenical, interdenominational,  science friendly and open to the Spirit.</p>
-                <p className="mb-2">We are social-justice oriented and seek to learn from and center marginalized voices.</p>
+                <p>We are a Jesus-centered, progressive, LGBTQIA+ affirming church. </p>
+                <p>We foster connection to God through contemporary worship, insightful scripture teaching, easy-access liturgy, art, and prayer.</p>
+                <p>We are ecumenical, interdenominational,  science friendly and open to the Spirit.</p>
+                <p>We are social-justice oriented and seek to learn from and center marginalized voices.</p>
             </div>
             
-            <h2 className="text-2xl font-medium text-left ml-[10%] text-[var(--var-rnbw1)] mt-8 mb-4">Our Board</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 py-8 bg-gray-300 w-[90%] max-w-6xl mx-auto my-8 text-center text-sm">
+            <h2 className="text-2xl font-medium text-left ml-[10%] text-[var(--var-rnbw1)] mt-2">Our Board</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 py-8 bg-gray-300 w-[90%] max-w-6xl mx-auto text-center text-sm">
                 {boardmembers.length > 0 && (
                     boardmembers.map((bm: any) => (
                         <div key={bm.id} className="flex flex-col items-center">

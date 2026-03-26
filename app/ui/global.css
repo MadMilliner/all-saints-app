@@ -129,7 +129,7 @@ button:hover {
 }
 
 #headerLogoH {
-  width: min(300px, 20vw);
+  width: min(250px, 50vw);
 }
 
 #navbar {
@@ -225,6 +225,36 @@ a[href="jobs"]:visited {
 #jobsPage h5,
 #jobsPage h6 {
   color: var(--var-rnbw6);
+}
+
+#slideshow {
+  position: absolute;
+  top: 15dvh;
+  height: 50dvh;
+  overflow-y: hidden;
+  z-index: 0;
+}
+
+#slideshow img {
+  filter: grayscale(100%);
+}
+
+.embla__viewport {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+#everyoneAlways {
+  opacity: 90%;
 }
 
 #signup {

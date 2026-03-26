@@ -24,17 +24,21 @@ export default function MailchimpSignupForm()
               <span className="text-red-400">*</span> indicates required
             </div>
 
-            <div className="mc-field-group mt-3">
+            <div className="mc-field-group mt-3 flex flex-col">
               <label htmlFor="mce-EMAIL">
                 Email Address <span className="text-red-400">*</span>
               </label>
               <input
                 type="email"
                 name="EMAIL"
-                className="required email text-black rounded-lg"
                 id="mce-EMAIL"
                 required
+                placeholder=" "
+                className="peer required email text-black rounded-lg border-2 border-transparent outline-none p-2 mt-1 focus:ring-2 focus:ring-[var(--var-rnbw5)] invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-600"
               />
+              <span className="mt-1 hidden text-xs text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                  Please enter a valid email address
+              </span>
             </div>
 
             <div className="mc-field-group input-group mt-3">
