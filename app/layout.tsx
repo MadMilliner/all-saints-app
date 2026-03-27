@@ -5,11 +5,28 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
  
 export const metadata: Metadata = {
+  keywords: ['All Saints', 'church', 'progressive', 'gay church', 'Know Your Mothers', 'all are welcome', 'inclusive', 'LGBTQIA', 'lgbtq+', 'affirming'],
+  applicationName: 'All Saints LA Church',
   title: {
-    template: '%s | All Saints LA',
-    default: 'All Saints LA', // a default is required when creating a template
+    //  'All Saints LA Church',
+    template: '%s | All Saints LA Church',
+    default: 'All Saints LA Church', // a default is required when creating a template
   },
-  description: 'All Saints is a Jesus-centered, progressive, LGBTQIA+ affirming church. ',
+  description: 'All Saints is a Jesus-centered, progressive, LGBTQIA+ affirming church.',
+  openGraph: {
+    title: 'All Saints LA Church',
+    description: 'All Saints is a Jesus-centered, progressive, LGBTQIA+ affirming church.',
+    url: 'https://allsaintla.church',
+    siteName: 'All Saints LA Church',
+    images: [
+      {
+        url: 'public/img/AllSaintsLogo_Pride_KO_Horizontal-01.webp',
+        width: 2500,
+        height: 817,
+      },
+    ],
+    type: 'website',
+  },
 }
 
 const poppins = Poppins({
