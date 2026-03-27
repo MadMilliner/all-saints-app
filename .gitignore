@@ -1,7 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# general
 /.vscode/
-/app/LayoutTester.tsx
+
 
 # dependencies
 /node_modules
@@ -14,6 +15,7 @@
 # next.js
 /.next/
 /out/
+/app/LayoutTester.tsx
 
 # production
 /build
