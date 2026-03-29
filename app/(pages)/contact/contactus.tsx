@@ -34,7 +34,7 @@ const ContactUs: FC = () => {
 
                 <div className="flex flex-col">
                     <label htmlFor="email" className="text-sm font-medium mb-1">Email <span className="text-red-500">*</span></label>
-                    <input type="email" id="email" className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all shadow-sm text-black ${errors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[var(--var-rnbw5)] focus:border-transparent'}`} {...register('email', { required: "Email is required", pattern: { value: /^[eE0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i, message: "Invalid email address" } })}/>
+                    <input type="email" id="email" className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all shadow-sm text-black ${errors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[var(--var-rnbw5)] focus:border-transparent'}`} {...register('email', { required: "Email is required", pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i, message: "Invalid email address" } })}/>
                     {errors.email && <span className="text-red-500 text-xs mt-1 ml-1">{errors.email.message}</span>}
                 </div>
 
