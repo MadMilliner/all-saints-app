@@ -230,7 +230,7 @@ a[href="jobs"]:visited {
 #slideshow {
   position: absolute;
   top: 15dvh;
-  height: 50dvh;
+  height: 15rem;
   overflow-y: hidden;
   z-index: 0;
 }

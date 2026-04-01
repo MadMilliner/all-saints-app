@@ -43,8 +43,8 @@ export default function MailchimpSignupForm()
 
             <div className="mc-field-group input-group mt-3">
               <strong>Email Format </strong>
-              <ul className="flex flex-wrap text-sm">
-                <li>
+              <ul className="flex flex-col gap-1 items-start text-sm">
+                <li className="flex justify-center">
                   <input
                     type="radio"
                     name="EMAILTYPE"
@@ -54,7 +54,7 @@ export default function MailchimpSignupForm()
                   />
                   <label htmlFor="mce-EMAILTYPE0">html</label>
                 </li>
-                <li>
+                <li className="flex justify-center gap-0">
                   <input
                     type="radio"
                     name="EMAILTYPE"
