@@ -25,7 +25,7 @@ export default async function Page() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 py-8 bg-gray-300 w-[90%] max-w-6xl mx-auto text-center text-sm">
                 {boardmembers.length > 0 && (
                     boardmembers.map((bm: any) => (
-                        <div key={bm.id} className="flex flex-col items-center">
+                        <div key={bm.idNum} className="flex flex-col items-center">
                             <Image
                                 width={1080}
                                 height={826}
