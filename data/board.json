@@ -1,42 +1,42 @@
 [
     {
         "id": "1",
-        "status": "inactive",
+        "standing": "inactive",
         "name": "Briana Mandel",
         "image": "/img/board/Brianna.jpg",
         "pronouns": "she/her"
     },
     {
         "id": "2",
-        "status": "active",
+        "standing": "active",
         "name": "Jorge Garza",
         "image": "/img/board/Jorge.jpg",
         "pronouns": "he/him"
     },
     {
         "id": "3",
-        "status": "active",
+        "standing": "active",
         "name": "Kimmy Andrews",
         "image": "/img/board/Kimmy.jpg",
         "pronouns": "she/her"
     },
     {
         "id": "4",
-        "status": "active",
+        "standing": "active",
         "name": "Monica Hsu O'Connor",
         "image": "/img/board/Monica.jpg",
         "pronouns": "she/her"
     },
     {
         "id": "5",
-        "status": "active",
+        "standing": "active",
         "name": "Max Diamond",
         "image": "/img/board/Max.jpg",
         "pronouns": "he/him"
     },
     {
         "id": "6",
-        "status": "active",
+        "standing": "active",
         "name": "Jason Peterson",
         "image": "/img/board/Jason.jpg",
         "pronouns": "he/him"

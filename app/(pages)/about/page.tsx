@@ -7,7 +7,7 @@ export const generateMetadata = (): Metadata => {
   return{title: 'About',}
 }
 
-const boardmembers = boardmembersData.filter((bm: any) => bm.status === 'active')
+const boardmembers = boardmembersData.filter((bm: any) => bm.standing === 'active')
 
 export default async function Page() {
     return (
