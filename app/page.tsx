@@ -9,9 +9,10 @@ export const generateMetadata = (): Metadata => {
 }
 
 export default async function Page(props: {
-  searchParams: Record<string, string>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }) {
-    await layoutTester(props.searchParams);
+    const searchParams = (await props.searchParams) ?? {};
+    await layoutTester(searchParams);
     
     return (
         <div id="page" className="w-full flex justify-center items-center flex-col gap-12 pb-12 pt-20">

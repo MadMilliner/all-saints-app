@@ -1,6 +1,7 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { FormEvent } from 'react';
 
 type EditableFile = 'board' | 'jobs';
 
@@ -88,10 +89,13 @@ export default function AdminPage() {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
   const [activeFile, setActiveFile] = useState<EditableFile>('board');
-  const [content, setContent] = useState<unknown>(null);
+  const [content, setContent] = useState<JsonValue>(null);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [selectedRecordIndex, setSelectedRecordIndex] = useState(0);
+  const [boardImages, setBoardImages] = useState<string[]>([]);
+  const [boardImagesLoading, setBoardImagesLoading] = useState(false);
+  const [boardImageUploading, setBoardImageUploading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -121,13 +125,38 @@ export default function AdminPage() {
       }
 
       const payload = await response.json();
-      const parsed = JSON.parse(payload.content ?? 'null');
+      const parsed = JSON.parse(payload.content ?? 'null') as JsonValue;
       setContent(parsed);
       setSelectedRecordIndex(0);
       setLoading(false);
     };
 
     void loadFile();
+  }, [activeFile, authenticated]);
+
+  useEffect(() => {
+    if (!authenticated || activeFile !== 'board') {
+      return;
+    }
+
+    const loadBoardImages = async () => {
+      setBoardImagesLoading(true);
+      const response = await fetch('/api/admin/board-images', {
+        method: 'GET',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        setBoardImagesLoading(false);
+        return;
+      }
+
+      const payload = await response.json().catch(() => ({ files: [] as string[] }));
+      setBoardImages(Array.isArray(payload.files) ? payload.files : []);
+      setBoardImagesLoading(false);
+    };
+
+    void loadBoardImages();
   }, [activeFile, authenticated]);
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
@@ -188,20 +217,69 @@ export default function AdminPage() {
     });
     setAuthenticated(false);
     setContent(null);
+    setBoardImages([]);
     setError('');
     setSuccess('Signed out.');
   };
 
-  const updateValueAtPath = (path: Array<string | number>, newValue: unknown) => {
-    setContent((previous) => {
-      const clone = structuredClone(previous as JsonValue);
+  const refreshBoardImages = async () => {
+    const response = await fetch('/api/admin/board-images', {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      return;
+    }
+
+    const payload = await response.json().catch(() => ({ files: [] as string[] }));
+    setBoardImages(Array.isArray(payload.files) ? payload.files : []);
+  };
+
+  const uploadBoardImage = async (path: Array<string | number>, file: File | null) => {
+    if (!file) {
+      return;
+    }
+
+    setBoardImageUploading(true);
+    setError('');
+    setSuccess('');
+
+    const formData = new FormData();
+    formData.set('file', file);
+
+    const response = await fetch('/api/admin/board-images', {
+      method: 'POST',
+      credentials: 'include',
+      body: formData,
+    });
+
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      setError(payload.error ?? 'Image upload failed.');
+      setBoardImageUploading(false);
+      return;
+    }
+
+    if (typeof payload.path === 'string') {
+      updateValueAtPath(path, payload.path);
+      setSuccess('Image uploaded and selected.');
+    }
+
+    await refreshBoardImages();
+    setBoardImageUploading(false);
+  };
+
+  const updateValueAtPath = (path: Array<string | number>, newValue: JsonValue) => {
+    setContent((previous: JsonValue) => {
+      const clone = structuredClone(previous) as JsonValue;
       if (path.length === 0) {
         return newValue;
       }
 
       let current: unknown = clone;
       for (let index = 0; index < path.length - 1; index += 1) {
-        const segment = path[index];
+        const segment = path[index]!;
         if (typeof segment === 'number') {
           current = (current as Array<unknown>)[segment];
         } else {
@@ -209,7 +287,7 @@ export default function AdminPage() {
         }
       }
 
-      const lastSegment = path[path.length - 1];
+      const lastSegment = path[path.length - 1]!;
       if (typeof lastSegment === 'number') {
         (current as Array<unknown>)[lastSegment] = newValue;
       } else {
@@ -252,13 +330,13 @@ export default function AdminPage() {
         }
       }
 
-      return clone;
+      return clone as JsonValue;
     });
   };
 
   const addRecordToArray = (path: Array<string | number>) => {
-    setContent((previous) => {
-      const clone = structuredClone(previous as JsonValue);
+    setContent((previous: JsonValue) => {
+      const clone = structuredClone(previous) as JsonValue;
       let current: unknown = clone;
 
       for (const segment of path) {
@@ -309,13 +387,13 @@ export default function AdminPage() {
         current.push('');
       }
 
-      return clone;
+      return clone as JsonValue;
     });
   };
 
   const removeRecordFromArray = (path: Array<string | number>, indexToRemove: number) => {
-    setContent((previous) => {
-      const clone = structuredClone(previous);
+    setContent((previous: JsonValue) => {
+      const clone = structuredClone(previous) as JsonValue;
       let current: unknown = clone;
 
       for (const segment of path) {
@@ -337,7 +415,7 @@ export default function AdminPage() {
         }
         return Math.min(prevIndex, current.length - 1);
       });
-      return clone;
+      return clone as JsonValue;
     });
   };
 
@@ -345,6 +423,56 @@ export default function AdminPage() {
     const key = path[path.length - 1];
     const isReadOnlyIdField = key === 'id' || key === 'idNum';
     const isStandingField = key === 'standing';
+    const isBoardImageField = activeFile === 'board' && key === 'image';
+
+    if (isBoardImageField) {
+      return (
+        <div className="mb-3">
+          <label className="form-label">{label}</label>
+          <div className="form-control mb-2 bg-light-subtle">
+            {value === null || String(value).trim() === '' ? 'No image selected' : String(value)}
+          </div>
+          <div className="d-flex flex-wrap gap-2 mb-2">
+            <select
+              className="form-select"
+              value={value === null ? '' : String(value)}
+              onChange={(event) => updateValueAtPath(path, event.target.value)}
+              style={{ maxWidth: 420 }}
+              disabled={boardImagesLoading}
+            >
+              <option value="">Select image from /img/board</option>
+              {boardImages.map((imagePath) => (
+                <option key={imagePath} value={imagePath}>
+                  {imagePath}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              className="btn btn-outline-secondary"
+              onClick={() => void refreshBoardImages()}
+              disabled={boardImagesLoading}
+            >
+              {boardImagesLoading ? 'Refreshing...' : 'Refresh'}
+            </button>
+          </div>
+          <input
+            type="file"
+            className="form-control"
+            accept=".jpg,.jpeg,.png,.webp,.gif"
+            onChange={(event) => {
+              const file = event.target.files?.[0] ?? null;
+              void uploadBoardImage(path, file);
+              event.currentTarget.value = '';
+            }}
+            disabled={boardImageUploading}
+          />
+          <small className="text-muted">
+            Upload new image.
+          </small>
+        </div>
+      );
+    }
 
     if (isStandingField) {
       return (
@@ -485,7 +613,7 @@ export default function AdminPage() {
               <div className="card-body p-4 p-md-5">
               <h1 className="h3 mb-3">All Saints Content Admin</h1>
               <p className="text-muted mb-4">
-                Password-protected editor for `data/board.json` and `data/jobs.json`.
+                Admin page to update Board and Jobs.
               </p>
 
               {error ? <div className="alert alert-danger">{error}</div> : null}
@@ -567,7 +695,7 @@ export default function AdminPage() {
                       className="btn btn-sm btn-outline-primary"
                       onClick={() => addRecordToArray(activeFile === 'board' ? [] : ['jobs'])}
                     >
-                      Add New Record
+                      Add New Board Member
                     </button>
                     <button
                       type="button"
@@ -577,7 +705,7 @@ export default function AdminPage() {
                       }
                       disabled={recordCollection.length === 0}
                     >
-                      Remove Record
+                      Delete Board Member
                     </button>
                   </div>
 
