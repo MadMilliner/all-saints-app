@@ -2,6 +2,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { NextResponse } from 'next/server';
 import { isAuthenticated } from '@/lib/admin-auth';
+import { getCloudflareBindings } from '@/lib/cloudflare-bindings';
 
 const BOARD_IMAGE_DIR = path.join(process.cwd(), 'public', 'img', 'board');
 const ALLOWED_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif']);
@@ -19,19 +20,48 @@ async function ensureBoardImageDir(): Promise<void> {
   await fs.mkdir(BOARD_IMAGE_DIR, { recursive: true });
 }
 
+function resolvePublicImageUrl(fileName: string, baseUrl?: string): string {
+  if (!baseUrl) {
+    return `/img/board/${fileName}`;
+  }
+  return `${baseUrl.replace(/\/$/, '')}/${fileName}`;
+}
+
 export async function GET() {
   if (!(await isAuthenticated())) {
     return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 });
   }
 
-  await ensureBoardImageDir();
-  const entries = await fs.readdir(BOARD_IMAGE_DIR, { withFileTypes: true });
-  const files = entries
-    .filter((entry) => entry.isFile())
-    .map((entry) => entry.name)
-    .filter((name) => isAllowedImage(name))
-    .sort((a, b) => a.localeCompare(b))
-    .map((name) => `/img/board/${name}`);
+  const bindings = await getCloudflareBindings();
+  const bucket = bindings?.BOARD_IMAGES;
+
+  let files: string[] = [];
+  if (bucket) {
+    const listed = await bucket.list({ prefix: 'board/' });
+    files = listed.objects
+      .map((object) => object.key)
+      .filter((key) => key.startsWith('board/'))
+      .map((key) => key.slice('board/'.length))
+      .filter((name) => isAllowedImage(name))
+      .sort((a, b) => a.localeCompare(b))
+      .map((name) => resolvePublicImageUrl(name, bindings?.PUBLIC_R2_BASE_URL));
+  } else {
+    if (process.env.NODE_ENV === 'production') {
+      return NextResponse.json(
+        { error: 'BOARD_IMAGES binding is missing. Enable R2 and add BOARD_IMAGES binding in wrangler.' },
+        { status: 500 }
+      );
+    }
+
+    await ensureBoardImageDir();
+    const entries = await fs.readdir(BOARD_IMAGE_DIR, { withFileTypes: true });
+    files = entries
+      .filter((entry) => entry.isFile())
+      .map((entry) => entry.name)
+      .filter((name) => isAllowedImage(name))
+      .sort((a, b) => a.localeCompare(b))
+      .map((name) => `/img/board/${name}`);
+  }
 
   return NextResponse.json({ files });
 }
@@ -59,7 +89,24 @@ export async function POST(request: Request) {
   await ensureBoardImageDir();
   const destination = path.join(BOARD_IMAGE_DIR, sanitizedName);
   const bytes = await file.arrayBuffer();
-  await fs.writeFile(destination, Buffer.from(bytes));
+  const bindings = await getCloudflareBindings();
+  const bucket = bindings?.BOARD_IMAGES;
+  if (bucket) {
+    await bucket.put(`board/${sanitizedName}`, bytes, {
+      httpMetadata: {
+        contentType: file.type || undefined,
+      },
+    });
+    return NextResponse.json({ path: resolvePublicImageUrl(sanitizedName, bindings?.PUBLIC_R2_BASE_URL) });
+  }
 
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json(
+      { error: 'BOARD_IMAGES binding is missing. Enable R2 and add BOARD_IMAGES binding in wrangler.' },
+      { status: 500 }
+    );
+  }
+
+  await fs.writeFile(destination, Buffer.from(bytes));
   return NextResponse.json({ path: `/img/board/${sanitizedName}` });
 }

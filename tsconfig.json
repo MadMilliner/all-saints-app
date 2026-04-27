@@ -11,7 +11,7 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
-    "noEmit": false,
+    "noEmit": true,
     "noEmitOnError": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -40,5 +40,11 @@
     "scripts/seed.js",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    ".next",
+    ".open-next",
+    "dist",
+    "out"
+  ]
 }

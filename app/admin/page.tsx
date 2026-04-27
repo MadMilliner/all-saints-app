@@ -43,6 +43,38 @@ const DEFAULT_JOB_RECORD: JsonObject = {
   applicationEmail: '',
 };
 
+function getErrorMessage(payload: unknown, fallback: string): string {
+  if (
+    payload &&
+    typeof payload === 'object' &&
+    'error' in payload &&
+    typeof (payload as { error?: unknown }).error === 'string'
+  ) {
+    return (payload as { error: string }).error;
+  }
+  return fallback;
+}
+
+function getStringField(payload: unknown, key: string): string | null {
+  if (payload && typeof payload === 'object' && key in payload) {
+    const value = (payload as Record<string, unknown>)[key];
+    if (typeof value === 'string') {
+      return value;
+    }
+  }
+  return null;
+}
+
+function getStringArrayField(payload: unknown, key: string): string[] {
+  if (payload && typeof payload === 'object' && key in payload) {
+    const value = (payload as Record<string, unknown>)[key];
+    if (Array.isArray(value)) {
+      return value.filter((item): item is string => typeof item === 'string');
+    }
+  }
+  return [];
+}
+
 function slugify(value: string): string {
   return value
     .toLowerCase()
@@ -119,13 +151,13 @@ export default function AdminPage() {
         if (response.status === 401) {
           setAuthenticated(false);
         }
-        setError(payload.error ?? 'Unable to load file.');
+        setError(getErrorMessage(payload, 'Unable to load file.'));
         setLoading(false);
         return;
       }
 
       const payload = await response.json();
-      const parsed = JSON.parse(payload.content ?? 'null') as JsonValue;
+      const parsed = JSON.parse(getStringField(payload, 'content') ?? 'null') as JsonValue;
       setContent(parsed);
       setSelectedRecordIndex(0);
       setLoading(false);
@@ -151,8 +183,8 @@ export default function AdminPage() {
         return;
       }
 
-      const payload = await response.json().catch(() => ({ files: [] as string[] }));
-      setBoardImages(Array.isArray(payload.files) ? payload.files : []);
+      const payload = await response.json().catch(() => ({}));
+      setBoardImages(getStringArrayField(payload, 'files'));
       setBoardImagesLoading(false);
     };
 
@@ -172,7 +204,7 @@ export default function AdminPage() {
 
     if (!response.ok) {
       const payload = await response.json().catch(() => ({}));
-      setError(payload.error ?? 'Login failed.');
+      setError(getErrorMessage(payload, 'Login failed.'));
       return;
     }
 
@@ -201,7 +233,7 @@ export default function AdminPage() {
       if (response.status === 401) {
         setAuthenticated(false);
       }
-      setError(payload.error ?? 'Save failed.');
+      setError(getErrorMessage(payload, 'Save failed.'));
       setSaving(false);
       return;
     }
@@ -232,8 +264,8 @@ export default function AdminPage() {
       return;
     }
 
-    const payload = await response.json().catch(() => ({ files: [] as string[] }));
-    setBoardImages(Array.isArray(payload.files) ? payload.files : []);
+    const payload = await response.json().catch(() => ({}));
+    setBoardImages(getStringArrayField(payload, 'files'));
   };
 
   const uploadBoardImage = async (path: Array<string | number>, file: File | null) => {
@@ -256,13 +288,14 @@ export default function AdminPage() {
 
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) {
-      setError(payload.error ?? 'Image upload failed.');
+      setError(getErrorMessage(payload, 'Image upload failed.'));
       setBoardImageUploading(false);
       return;
     }
 
-    if (typeof payload.path === 'string') {
-      updateValueAtPath(path, payload.path);
+    const uploadedPath = getStringField(payload, 'path');
+    if (uploadedPath) {
+      updateValueAtPath(path, uploadedPath);
       setSuccess('Image uploaded and selected.');
     }
 
@@ -468,7 +501,7 @@ export default function AdminPage() {
             disabled={boardImageUploading}
           />
           <small className="text-muted">
-            Upload new image.
+            Upload new image (please only files under 5MB).
           </small>
         </div>
       );

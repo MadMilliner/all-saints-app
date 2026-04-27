@@ -16,12 +16,24 @@
 			// Self-reference service binding, the service name must match the worker name
 			// see https://opennext.js.org/cloudflare/caching
 			"binding": "WORKER_SELF_REFERENCE",
-			"service": "all-saints-app"
+			"service": "all-saints-la"
 		}
 	],
 	"images": {
 		// Enable image optimization
 		// see https://opennext.js.org/cloudflare/howtos/image
 		"binding": "IMAGES"
-	}
+	},
+	"kv_namespaces": [
+		{
+			"binding": "CONTENT_KV",
+			"id": "198944a6dc934839ae64b7e6001faad5"
+		}
+	],
+	"r2_buckets": [
+		{
+			"bucket_name": "all-saints-board-images",
+			"binding": "BOARD_IMAGES"
+		}
+	]
 }

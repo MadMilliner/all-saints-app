@@ -1,9 +1,11 @@
-// 'use client';
 import '@/app/ui/global.css'
 import { Footer, Navbar } from './ui/Head-Foot';
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
- 
+import { loadPublicContentJson } from '@/lib/load-public-content';
+
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   keywords: ['All Saints', 'church', 'progressive', 'gay church', 'Know Your Mothers', 'all are welcome', 'inclusive', 'LGBTQIA', 'lgbtq+', 'affirming'],
   applicationName: 'All Saints LA Church',
@@ -36,11 +38,20 @@ const poppins = Poppins({
   display: 'swap',
 })
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const jobsRaw = await loadPublicContentJson('jobs');
+  let showJobsLink = false;
+  try {
+    const parsed = JSON.parse(jobsRaw) as { jobs?: unknown[] };
+    showJobsLink = Array.isArray(parsed.jobs) && parsed.jobs.length > 0;
+  } catch {
+    showJobsLink = false;
+  }
+
   return (
     <html lang="en" className={poppins.className}>
       <head>
@@ -54,7 +65,7 @@ export default function RootLayout({
       </head>
         
       <body className={`antialiased`}>
-        <Navbar />
+        <Navbar showJobsLink={showJobsLink} />
             {children}
         <Footer />
       </body>

@@ -7,14 +7,16 @@ export function sendEmail(data: FormData) {
     method: 'POST',
     body: JSON.stringify(data),
   })
-    .then((res) => res.json())
+    .then((res) => res.json() as Promise<Record<string, unknown>>)
     .then((response) => {
-        alert(response.message);
-        return response;
+      const message = typeof response.message === 'string' ? response.message : 'Email sent';
+      alert(message);
+      return response;
     })
     .catch((err) => {
-        alert(err);
-        throw err;
+      const message = err instanceof Error ? err.message : String(err);
+      alert(message);
+      throw err;
     })
 }
 

@@ -1,9 +1,8 @@
 'use client';
 
 import type { FC } from 'react';
-import jobsData from '@/data/jobs.json';
 
-interface Job {
+export interface Job {
   id: string;
   title: string;
   startDate: string;
@@ -19,11 +18,11 @@ interface Job {
 }
 
 interface JobsPageProps {
+  jobs: Job[];
   jobId?: string; // Optional: render single job or all jobs
 }
 
-const Jobs: FC<JobsPageProps> = ({ jobId }) => {
-  const jobs = jobsData.jobs as Job[];
+const Jobs: FC<JobsPageProps> = ({ jobs, jobId }) => {
   const displayJobs = jobId ? jobs.filter((job) => job.id === jobId) : jobs;
 
   if (displayJobs.length === 0) {

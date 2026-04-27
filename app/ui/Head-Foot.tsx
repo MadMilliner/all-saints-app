@@ -8,12 +8,9 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
-import jobsData from '../../data/jobs.json'
 import MailchimpSignupForm from './MailchimpSignUp';
 
-const jobs = jobsData.jobs;
-
-export const Navbar: React.FC = () =>
+export const Navbar: React.FC<{ showJobsLink: boolean }> = ({ showJobsLink }) =>
 {
     const pathname = usePathname();
     const [navIsOpen, setNavIsOpen] = useState(false);
@@ -71,7 +68,7 @@ export const Navbar: React.FC = () =>
                 <Link href="events" className={`${pathname === '/events' ? 'underline decoration-[var(--var-rnbw3)] decoration-2 underline-offset-4' : ''}`} onClick={() => setNavIsOpen(false)}>Events</Link>
                 <Link href="give" className={`${pathname === '/give' ? 'underline decoration-[var(--var-rnbw4)] decoration-2 underline-offset-4' : ''}`} onClick={() => setNavIsOpen(false)}>Give</Link>
                 <Link href="contact" className={`${pathname === '/contact' ? 'underline decoration-[var(--var-rnbw5)] decoration-2 underline-offset-4' : ''}`} onClick={() => setNavIsOpen(false)}>Contact</Link>
-                {jobs.length > 0 && (<Link href="jobs" className={`${pathname === '/jobs' ? 'underline decoration-[var(--var-rnbw6)] decoration-2 underline-offset-4' : ''}`} onClick={() => setNavIsOpen(false)}>Jobs</Link>)}
+                {showJobsLink && (<Link href="jobs" className={`${pathname === '/jobs' ? 'underline decoration-[var(--var-rnbw6)] decoration-2 underline-offset-4' : ''}`} onClick={() => setNavIsOpen(false)}>Jobs</Link>)}
             </nav>
         </div>
     );

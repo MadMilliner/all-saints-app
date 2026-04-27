@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const body = await request.json().catch(() => ({}));
+  const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
   const password = typeof body.password === 'string' ? body.password : '';
   const expectedPassword = process.env.ADMIN_PANEL_PASSWORD ?? '';
 

@@ -1,15 +1,23 @@
-// 'use client';
 import type { Metadata } from "next";
-import boardmembersData from '../../../data/board.json'
 import Image from "next/image";
+import { loadPublicContentJson } from '@/lib/load-public-content';
+
+export const dynamic = 'force-dynamic';
 
 export const generateMetadata = (): Metadata => {
   return{title: 'About',}
 }
 
-const boardmembers = boardmembersData.filter((bm: any) => bm.standing === 'active')
-
 export default async function Page() {
+    const raw = await loadPublicContentJson('board');
+    const boardmembersData = JSON.parse(raw) as Array<{
+        idNum: string;
+        standing: string;
+        name: string;
+        image: string;
+        pronouns: string;
+    }>;
+    const boardmembers = boardmembersData.filter((bm) => bm.standing === 'active');
     return (
         <div className="flex flex-col w-full px-4 md:px-8 py-8 gap-6">
             <h2 className="text-2xl font-medium text-left ml-[10%] text-[var(--var-rnbw1)]">Who we are:</h2>
@@ -24,7 +32,7 @@ export default async function Page() {
             <h2 className="text-2xl font-medium text-left ml-[10%] text-[var(--var-rnbw1)] mt-2">Our Board</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 py-8 bg-gray-300 w-[90%] max-w-6xl mx-auto text-center text-sm">
                 {boardmembers.length > 0 && (
-                    boardmembers.map((bm: any) => (
+                    boardmembers.map((bm) => (
                         <div key={bm.idNum} className="flex flex-col items-center">
                             <Image
                                 width={1080}
